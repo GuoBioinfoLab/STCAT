@@ -1,4 +1,4 @@
-# TCAT ![Python Versions](https://img.shields.io/badge/python-3.8+-brightgreen.svg)
+# TCAT  <a href="https://www.python.org/"><img src="https://img.shields.io/badge/python-3.8+-brightgreen.svg" alt="Python Versions" width="80"></a>
 
 TCAT is an automated T cell type annotation tool for scRNA-seq datasets. It is based on CellTypist, a logistic regression classifier optimized by the stochastic gradient descent algorithm. We made some changes to CellTypist and developed this tool in conjunction with our marker. Models trained by CellTypist are used in our automated annotation process.
 
