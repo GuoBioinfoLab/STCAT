@@ -3,7 +3,7 @@
 TCAT is an automated T cell type annotation tool for scRNA-seq datasets. It is based on CellTypist, a logistic regression classifier optimized by the stochastic gradient descent algorithm. We made some changes to CellTypist and developed this tool in conjunction with our tagger. Models trained by CellTypist are used in our automated annotation process.
 
 # Install TCAT
-### Using pip 
+## Using pip 
 ```console
 pip install TCAT
 ```
