@@ -3,7 +3,7 @@
 STCAT is an automated T cell type annotation tool for scRNA-seq datasets. It is based on CellTypist, a logistic regression classifier optimized by the stochastic gradient descent algorithm. We made some changes to CellTypist and developed this tool in conjunction with our marker. Models trained by CellTypist are used in our automated annotation process.
 
 # TcellAtlats website
-Information of STCAT can be also found in our TCellAtlas portal. 
+Information of STCAT can be also found in our TcellAtlas portal. 
 <a href="https://github.com/GuoBioinfoLab/STCAT"><img src="https://img.shields.io/badge/TcellAtlas-blue" alt="TcellAtlas website" width="50"></a>
 
 # Install STCAT
