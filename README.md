@@ -4,7 +4,7 @@ STCAT is an automated T cell type annotation tool for scRNA-seq datasets. It is 
 
 # TcellAtlats website
 Information of STCAT can be also found in our TcellAtlas portal. 
-<a href="https://github.com/GuoBioinfoLab/STCAT"><img src="[https://img.shields.io/badge/TcellAtlas-blue](https://guolab.wchscu.cn/TCellAtlas/#/)" alt="TcellAtlas website" width="50"></a>
+<a href="https://github.com/GuoBioinfoLab/STCAT"><img src="https://guolab.wchscu.cn/TCellAtlas/#/" alt="TcellAtlas website" width="50"></a>
 
 # Install STCAT
 ### Using pip
