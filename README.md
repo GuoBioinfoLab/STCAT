@@ -18,7 +18,7 @@ pip install STCAT
 # Usage 
 STCAT expects a raw count matrix as input and can be implemented with only one line of code in Python. 
 STCAT expects to use an Anndata object ( .h5ad file format ) as input, and at the same time, a raw count matrix ( reads or UMIs ) is required. 
-The file input is in a cell-by-gene format ( cells as rows and genes as columns ). 
+The file input is in a cell-by-gene format ( cells as rows and genes as columns ). For more information, please see [anndata](https://anndata.readthedocs.io/en/latest/).
 As for the annotation result, STCAT will be automatically added to the common anndata format of scRNA-seq analysis for easy viewing.
 ```python
 import scanpy as sc
