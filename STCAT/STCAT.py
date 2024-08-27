@@ -291,7 +291,11 @@ def STCAT(adata):
                          'over_clustering_0', 'majority_voting_0', 'CD4_OR_CD8', 'predicted_labels_CD4', 'over_clustering_CD4', 'majority_voting_CD4', 'predicted_labels_CD8', 'over_clustering_CD8', 
                          'majority_voting_CD8', 'batch']
     remove_var = ['CD3', 'n_cells_by_counts', 'mean_counts', 'pct_dropout_by_counts', 'total_counts', 'CD4-1', 'CD8-1', 'CD4-2', 'CD8-2', 'CD4-3', 'CD8-3']
-    adata.obs = adata.obs.drop(columns=remove_obs)
-    adata.var = adata.var.drop(columns=remove_var)
+    existing_obs_columns = [col for col in remove_obs if col in adata.obs.columns]
+    if existing_obs_columns:
+        adata.obs = adata.obs.drop(columns=existing_obs_columns)
+    existing_var_columns = [col for col in remove_var if col in adata.var.columns]
+    if existing_var_columns:
+        adata.var = adata.var.drop(columns=existing_var_columns)
     logger.info(f'✅ STCAT done!')
     return adata
