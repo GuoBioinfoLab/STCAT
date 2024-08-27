@@ -1,0 +1,7 @@
+numpy>=1.19.0
+pandas>=1.0.5
+scikit-learn>=0.24.1
+openpyxl>=3.0.4
+click>=7.1.2
+scanpy==1.9.3
+leidenalg>=0.8.3
