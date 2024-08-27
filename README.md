@@ -27,4 +27,4 @@ adata = sc.read_h5ad(<file_path>)
 results = STCAT.STCAT(adata)
 ```
 ## Example:
-[Tutorial](test/tutorial.ipynb)
+[Tutorial](tutorial.ipynb)
