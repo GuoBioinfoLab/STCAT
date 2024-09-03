@@ -28,4 +28,7 @@ adata = sc.read_h5ad(<file_path>)
 results = STCAT.STCAT(adata)
 ```
 ## Example:
+Here is an example for guidance, and the demo.h5ad file mentioned in the example can be found below.
 [Tutorial](tutorial.ipynb)
+### demo.h5ad file in Tutorial
+[demo.h5ad](demo.h5ad.bz2)
