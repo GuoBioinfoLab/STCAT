@@ -15,7 +15,7 @@ The database is accessible at [TCellAtlats](https://guolab.wchscu.cn/TCellAtlas/
 
 ```
 conda create -n STCAT python=3.9.16 pandas=2.1.2
-conda activate TOSICA
+conda activate STCAT
 ```
 ## Using pip
 ```console
