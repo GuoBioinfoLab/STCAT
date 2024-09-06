@@ -11,6 +11,12 @@ It includes all 68 T cell subtypes and states, making it the most extensive T ce
 Information of STCAT can be also found in our TCellAtlas portal. 
 The database is accessible at [TCellAtlats](https://guolab.wchscu.cn/TCellAtlas/#/).
 # Install STCAT
+## Create environment
+
+```
+conda create -n STCAT python=3.9.16 pandas=2.1.2
+conda activate TOSICA
+```
 ## Using pip
 ```console
 pip install STCAT
