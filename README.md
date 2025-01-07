@@ -6,15 +6,14 @@ The reference can be found in our TCellAtlas portal.
 STCAT can automatically annotate T cell subtypes and states for scRNA-seq data of different conditions and tissues.
 
 # TCellAtlats Website
-TCellAtlas is a comprehensive scRNA-seq database focused on T cells, containing 1,654,675 high-quality T cells from 328 samples across 35 conditions and 16 tissues, as well as 47,215 T cells from Smart-seq projects. 
-It includes all 68 T cell subtypes and states, making it the most extensive T cell reference database. 
+TCellAtlas contains 1,677,799 high-quality T cells of 339 samples from 38 10x Genomics projects across 37 conditions and 16 tissues. It also includes 47,215 high-quality T cells in 21 conditions and 8 tissues from 18 Smart-seq projects. TCellAtlas contains all 68 T cell subtypes/states, which makes it the most comprehensive T cell subtypes/states and T cell database with the largest number of cells.
 Information of STCAT can be also found in our TCellAtlas portal. 
 The database is accessible at [TCellAtlas](https://guolab.wchscu.cn/TCellAtlas/#/).
 # Install STCAT
 ## Create environment
 
 ```
-conda create -n STCAT python=3.9.16 pandas=2.1.2
+conda create -n STCAT python=3.9.16 pandas=2.2.0
 conda activate STCAT
 ```
 ## Using pip
