@@ -1,4 +1,4 @@
-# STCAT  <a href="https://www.python.org/"><img src="https://img.shields.io/badge/python-3.8+-brightgreen.svg" alt="Python Versions" width="80"></a>
+# STCAT  <a href="https://www.python.org/"><img src="https://img.shields.io/badge/python-3.9+-brightgreen.svg" alt="Python Versions" width="80"></a>
 
 STCAT is an automated T cell type annotation tool for scRNA-seq datasets. 
 It based on a high-confidence T cell subtypes and states reference. 
@@ -9,14 +9,18 @@ STCAT can automatically annotate T cell subtypes and states for scRNA-seq data o
 TCellAtlas contains 1,677,799 high-quality T cells of 339 samples from 38 10x Genomics projects across 37 conditions and 16 tissues. It also includes 47,215 high-quality T cells in 21 conditions and 8 tissues from 18 Smart-seq projects. TCellAtlas contains all 68 T cell subtypes/states, which makes it the most comprehensive T cell subtypes/states and T cell database with the largest number of cells.
 Information of STCAT can be also found in our TCellAtlas portal. 
 The database is accessible at [TCellAtlas](https://guolab.wchscu.cn/TCellAtlas/#/).
+
+# PyPI Page
+STCAT homepage on PyPI: [https://pypi.org/project/STCAT/](https://pypi.org/project/STCAT/)
+
 # Install STCAT
-## Create environment
+## 1.Create environment
 
 ```
-conda create -n STCAT python=3.9.16 pandas=2.2.0
+conda create -n STCAT python=3.9.16
 conda activate STCAT
 ```
-## Using pip
+## 2.Install using pip
 ```console
 pip install STCAT
 ```
@@ -37,3 +41,5 @@ Here is an example for guidance, and the demo.h5ad file mentioned in the example
 [Tutorial](tutorial.ipynb)
 ### demo.h5ad file in Tutorial
 [demo.h5ad](demo.h5ad.bz2)
+
+# Citation
