@@ -9,7 +9,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name='STCAT',
-    version='1.0.6',
+    version='1.0.7',
     packages=setuptools.find_packages(),
     install_requires=get_requirements(),
     include_package_data=True,
