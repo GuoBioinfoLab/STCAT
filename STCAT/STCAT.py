@@ -9,6 +9,13 @@ from multiprocessing import Process, Queue
 from . import logger
 warnings.filterwarnings("ignore")
 
+def shannon(data):
+    unique_elements, counts = np.unique(data, return_counts=True)
+    probabilities = counts / counts.sum()
+    entropy = -np.sum(probabilities * np.log(probabilities))
+    return entropy
+
+
 def STCAT(adata):
 
     data_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data")
@@ -51,7 +58,8 @@ def STCAT(adata):
     model = os.path.join(data_path, 'T_cell.pkl')
     predictions_voting = annotate.annotate(adata_T, model = model, majority_voting = True, min_prop =0.3)
     df = predictions_voting.predicted_labels.rename(columns={'predicted_labels': 'predicted_labels_'+ str(0), 'over_clustering': 'over_clustering_' + str(0), 'majority_voting': 'majority_voting_'+ str(0)})
-    adata_T.obs = pd.merge(adata_T.obs, df, how='outer', left_index=True, right_index=True)
+    df = df.reindex(adata_T.obs_names)
+    adata_T.obs = pd.concat([adata_T.obs, df], axis=1)
 
     type_dict = {}
     for over_clustering in predictions_voting.predicted_labels['over_clustering'].unique():
@@ -59,6 +67,8 @@ def STCAT(adata):
 
     adata_T_UN_D = adata_T[adata_T.obs['majority_voting_0'].isin(['Double Negative','Double Positive','MAIT','NKT','Tgd']), :]
     adata_T_UN_D.obs['Prediction'] = adata_T_UN_D.obs['majority_voting_0']
+    adata_T_UN_D.obs['Cluster'] = adata_T_UN_D.obs['over_clustering_0'].astype(str) + "_Un"
+    adata_T_UN_D.obs['ct_predicted_labels'] = adata_T_UN_D.obs['predicted_labels_0']
 
     # core
     next_step = []
@@ -104,7 +114,8 @@ def STCAT(adata):
             model = os.path.join(data_path, 'cd4.pkl')
             predictions_voting = annotate.annotate(adata_T_sub_CD4, model = model, majority_voting = True, min_prop =0.3)
             df = predictions_voting.predicted_labels.rename(columns={'predicted_labels': 'predicted_labels_'+ 'CD4', 'over_clustering': 'over_clustering_' + 'CD4', 'majority_voting': 'majority_voting_'+ 'CD4'})
-            adata_T_sub_CD4.obs = pd.merge(adata_T_sub_CD4.obs, df, how='outer', left_index=True, right_index=True)
+            df = df.reindex(adata_T_sub_CD4.obs_names)
+            adata_T_sub_CD4.obs = pd.concat([adata_T_sub_CD4.obs, df], axis=1)
 
             # rank_genes_groups
             cell_counts = adata_T_sub_CD4.obs['over_clustering_CD4'].value_counts()
@@ -171,14 +182,19 @@ def STCAT(adata):
                 elif type_dict_CD4[key] in ['CD4 Tn', 'CD4 Tn quiescence', 'CD4 Tn adhesion', 'CD4 Tn IFN-response', 'CD4 Tn regulating'] and any(marker in markers[key] for marker in marker_CD4['CD4 Tcm']):
                     type_dict_CD4[key] = 'CD4 Tcm'
             adata_T_sub_CD4.obs['Prediction'] = adata_T_sub_CD4.obs['over_clustering_CD4'].map(type_dict_CD4)
+            adata_T_sub_CD4.obs['Cluster'] = adata_T_sub_CD4.obs['over_clustering_CD4'].astype(str) + "_CD4"
+            adata_T_sub_CD4.obs['ct_predicted_labels'] = adata_T_sub_CD4.obs['predicted_labels_CD4']
         elif 0 < adata_T_sub_CD4.X.shape[0] <= 50:
             data_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data")
             model = os.path.join(data_path, 'cd4.pkl')
             predictions_voting = annotate.annotate(adata_T_sub_CD4, model = model, majority_voting = True, min_prop =0.3)
             df = predictions_voting.predicted_labels.rename(columns={'predicted_labels': 'predicted_labels_'+ 'CD4'})
             df['predicted_labels_CD4'] = df['predicted_labels_CD4'].value_counts().idxmax()
-            adata_T_sub_CD4.obs = pd.merge(adata_T_sub_CD4.obs, df, how='outer', left_index=True, right_index=True)
+            df = df.reindex(adata_T_sub_CD4.obs_names)
+            adata_T_sub_CD4.obs = pd.concat([adata_T_sub_CD4.obs, df], axis=1)
             adata_T_sub_CD4.obs['Prediction'] = adata_T_sub_CD4.obs['predicted_labels_CD4']
+            adata_T_sub_CD4.obs['Cluster'] = adata_T_sub_CD4.obs['over_clustering_CD4'].astype(str) + "_CD4"
+            adata_T_sub_CD4.obs['ct_predicted_labels'] = adata_T_sub_CD4.obs['predicted_labels_CD4']
         else:
             adata_T_sub_CD4 = adata_T_sub_CD4
         q1.put(adata_T_sub_CD4)
@@ -193,7 +209,8 @@ def STCAT(adata):
             model = os.path.join(data_path, 'cd8.pkl')
             predictions_voting = annotate.annotate(adata_T_sub_CD8, model = model, majority_voting = True, min_prop =0.3)
             df = predictions_voting.predicted_labels.rename(columns={'predicted_labels': 'predicted_labels_'+ 'CD8', 'over_clustering': 'over_clustering_' + 'CD8', 'majority_voting': 'majority_voting_'+ 'CD8'})
-            adata_T_sub_CD8.obs = pd.merge(adata_T_sub_CD8.obs, df, how='outer', left_index=True, right_index=True)
+            df = df.reindex(adata_T_sub_CD8.obs_names)
+            adata_T_sub_CD8.obs = pd.concat([adata_T_sub_CD8.obs, df], axis=1)
 
             # rank_genes_groups
             cell_counts = adata_T_sub_CD8.obs['over_clustering_CD8'].value_counts()
@@ -259,14 +276,19 @@ def STCAT(adata):
                 elif type_dict_CD8[key] in ['CD8 Tcm'] and 'IL7R' not in markers[key]:
                     type_dict_CD8[key] = 'CD8 Tem'
             adata_T_sub_CD8.obs['Prediction'] = adata_T_sub_CD8.obs['over_clustering_CD8'].map(type_dict_CD8)
+            adata_T_sub_CD8.obs['Cluster'] = adata_T_sub_CD8.obs['over_clustering_CD8'].astype(str) + "_CD8"
+            adata_T_sub_CD8.obs['ct_predicted_labels'] = adata_T_sub_CD8.obs['predicted_labels_CD8']
         elif 0 < adata_T_sub_CD8.X.shape[0] <= 50:
             data_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data")
             model = os.path.join(data_path, 'cd8.pkl')
             predictions_voting = annotate.annotate(adata_T_sub_CD8, model = model, majority_voting = True, min_prop =0.3)
             df = predictions_voting.predicted_labels.rename(columns={'predicted_labels': 'predicted_labels_'+ 'CD8'})
             df['predicted_labels_CD8'] = df['predicted_labels_CD8'].value_counts().idxmax()
-            adata_T_sub_CD8.obs = pd.merge(adata_T_sub_CD8.obs, df, how='outer', left_index=True, right_index=True)
+            df = df.reindex(adata_T_sub_CD8.obs_names)
+            adata_T_sub_CD8.obs = pd.concat([adata_T_sub_CD8.obs, df], axis=1)
             adata_T_sub_CD8.obs['Prediction'] = adata_T_sub_CD8.obs['predicted_labels_CD8']
+            adata_T_sub_CD8.obs['Cluster'] = adata_T_sub_CD8.obs['over_clustering_CD8'].astype(str) + "_CD8"
+            adata_T_sub_CD8.obs['ct_predicted_labels'] = adata_T_sub_CD8.obs['predicted_labels_CD8']
         else:
             adata_T_sub_CD8 = adata_T_sub_CD8
         q2.put(adata_T_sub_CD8)
@@ -286,10 +308,21 @@ def STCAT(adata):
         return adata_T_sub_CD4, adata_T_sub_CD8
 
     adata_T_sub_CD4, adata_T_sub_CD8 = start_processes()        
-    adata = sc.AnnData.concatenate(adata_None_T, adata_T_UN_D, adata_T_sub_CD4, adata_T_sub_CD8, index_unique = None)
+    adata = sc.AnnData.concatenate(adata_None_T, adata_T_UN_D, adata_T_sub_CD4, adata_T_sub_CD8, index_unique = None, batch_key= None)
+    
+    # Shannon
+    clusters = adata.obs['Cluster'].unique()
+    shannon_results = {}
+    for cluster in clusters:
+        cluster_data = adata[adata.obs['Cluster'] == cluster].obs['ct_predicted_labels'].tolist()
+        entropy = shannon(cluster_data)
+        shannon_results[cluster] = entropy
+    adata.obs['Uncertainty score'] = adata.obs['Cluster'].map(shannon_results)
+    adata.obs['Uncertainty score'] = adata.obs['Uncertainty score'].apply(lambda x: 0 if x == -0.0 else x)
+    
     remove_obs = ['n_genes_by_counts', 'total_counts', 'total_counts_CD3', 'pct_counts_CD3', 'total_counts_CD4', 'pct_counts_CD4', 'total_counts_CD8', 'pct_counts_CD8', 'predicted_labels_0', 
                          'over_clustering_0', 'majority_voting_0', 'CD4_OR_CD8', 'predicted_labels_CD4', 'over_clustering_CD4', 'majority_voting_CD4', 'predicted_labels_CD8', 'over_clustering_CD8', 
-                         'majority_voting_CD8', 'batch']
+                         'majority_voting_CD8', 'ct_predicted_labels']
     remove_var = ['CD3', 'n_cells_by_counts', 'mean_counts', 'pct_dropout_by_counts', 'total_counts', 'CD4-1', 'CD8-1', 'CD4-2', 'CD8-2', 'CD4-3', 'CD8-3']
     existing_obs_columns = [col for col in remove_obs if col in adata.obs.columns]
     if existing_obs_columns:
@@ -297,5 +330,7 @@ def STCAT(adata):
     existing_var_columns = [col for col in remove_var if col in adata.var.columns]
     if existing_var_columns:
         adata.var = adata.var.drop(columns=existing_var_columns)
+    
     logger.info(f'✅ STCAT done!')
     return adata
+
