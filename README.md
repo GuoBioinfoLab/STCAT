@@ -8,7 +8,7 @@ STCAT can automatically annotate T cell subtypes and states for scRNA-seq data o
 # TCellAtlats Website
 TCellAtlas contains 1,677,799 high-quality T cells of 339 samples from 38 10x Genomics projects across 37 conditions and 16 tissues. It also includes 47,215 high-quality T cells in 21 conditions and 8 tissues from 18 Smart-seq projects. TCellAtlas contains all 68 T cell subtypes/states, which makes it the most comprehensive T cell subtypes/states and T cell database with the largest number of cells.
 Information of STCAT can be also found in our TCellAtlas portal. 
-The database is accessible at [TCellAtlas](https://guolab.wchscu.cn/TCellAtlas/#/).
+The database is accessible at [TCellAtlas](https://guolab.wchscu.cn/TCellAtlas/#/).Our TCellAtlas portal provides STCAT online services, which you can click [here](https://guolab.wchscu.cn/TCellAtlas/#/annotation) to access the service.
 
 # PyPI Page
 STCAT homepage on PyPI: [https://pypi.org/project/STCAT/](https://pypi.org/project/STCAT/)
