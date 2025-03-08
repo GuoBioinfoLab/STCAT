@@ -42,3 +42,4 @@ Here is an example for guidance, and the demo.h5ad file mentioned in the example
 [demo.h5ad](demo.h5ad.bz2)
 
 # Citation
+Already accepted by Science Bulletin
