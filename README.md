@@ -42,4 +42,5 @@ Here is an example for guidance, and the demo.h5ad file mentioned in the example
 [demo.h5ad](demo.h5ad.bz2)
 
 # Citation
+An automatic annotation tool and reference database for T cell subtypes and states at single-cell resolution. Wen-Kang Shen, Chu-yuZhang, Yi-Min Gu, Tao Luo, si-yi chen, Tao Yue, Gui-Yan Xie, Yu liao, Yong Yuan, 0ian Lei, and An-Yyan Guo, cience Bulletin. 2025 Mar.
 https://doi.org/10.1016/j.scib.2025.02.043
